@@ -1,0 +1,22 @@
+version: '3.9'
+services:
+  bike-shop-php:
+    build: ./docker/php
+    mem_limit: 512m
+    volumes:
+      - ./:/docker
+      - ./source:/var/www/html
+    ports:
+      - "80:80"
+    depends_on:
+      - bike-shop-db
+
+  bike-shop-db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: gispro_viewer
+    ports:
+      - 3306:3306
+    volumes:
+      - ./db:/var/lib/mysql
